@@ -3,7 +3,6 @@ const form = document.querySelector('.new-form');
 const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
 const contents = document.querySelector('.contents');
-const itemsArray = document.querySelectorAll('.item');
 
 let id = 0; //UUID
 
@@ -32,6 +31,10 @@ function resetInput() {
   input.focus();
 }
 
+function saveItems(id, text) {
+  localStorage.setItem(id, text);
+}
+
 function createItem(text) {
   const item = document.createElement('li');
   item.setAttribute('class', 'item');
@@ -47,6 +50,7 @@ function createItem(text) {
       </button>
     </div>
   `;
+  saveItems(id, text);
   id++;
   return item;
 }
