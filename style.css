@@ -134,6 +134,10 @@ li {
   margin: 0 auto 8px auto;
 }
 
+.item .blur {
+  opacity: 0.3;
+}
+
 .item__btns {
   display: flex;
   align-items: center;

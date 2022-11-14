@@ -31,10 +31,6 @@ function resetInput() {
   input.focus();
 }
 
-function saveItems(id, text) {
-  localStorage.setItem(id, text);
-}
-
 function createItem(text) {
   const item = document.createElement('li');
   item.setAttribute('class', 'item');
@@ -50,7 +46,6 @@ function createItem(text) {
       </button>
     </div>
   `;
-  saveItems(id, text);
   id++;
   return item;
 }
@@ -95,12 +90,15 @@ function onClickBtn(event) {
   const selectedId = event.target.dataset.id;
   const selectedBtn = event.target.parentNode;
   const selectedItem = document.querySelector(`.item[data-id='${selectedId}']`);
+  const selectedText = selectedItem.children[0];
   if (selectedBtn.classList.contains('check-btn')) {
     if (selectedBtn.classList.contains('active')) {
       selectedBtn.classList.remove('active');
+      selectedText.classList.remove('blur');
       moveToTop(selectedItem);
     } else {
       selectedBtn.classList.add('active');
+      selectedText.classList.add('blur');
       moveToBottom(selectedItem);
     }
   } else if (selectedBtn.classList.contains('delete-btn')) {
