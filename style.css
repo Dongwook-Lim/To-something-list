@@ -7,7 +7,7 @@
   --color-orange: #d84315;
 
   /* Animation */
-  --animation-duration: 300ms;
+  --animation-duration: 500ms;
 }
 
 * {
@@ -147,7 +147,7 @@ li {
   color: var(--color-dark-white);
 }
 
-.active {
+.checked {
   color: var(--color-yellow);
 }
 
@@ -179,7 +179,7 @@ li {
 
 @keyframes movingDown {
   from {
-    transform: translateY(-90%);
+    transform: translateY(-100%);
   }
   to {
     transform: translateY(0);
@@ -188,7 +188,7 @@ li {
 
 @keyframes movingUp {
   from {
-    transform: translateY(90%);
+    transform: translateY(100%);
   }
   to {
     transform: translateY(0);
