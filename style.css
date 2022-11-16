@@ -55,7 +55,7 @@ li {
 }
 
 .list-title {
-  margin: 10px 0 0 20px;
+  margin: 20px;
   font-family: 'Fugaz One', cursive;
   font-size: 23px;
 }
@@ -75,7 +75,7 @@ li {
   border-top-right-radius: 22px;
   font-family: 'Saira Semi Condensed', sans-serif;
   padding-bottom: 20px;
-  box-shadow: 0 -5px 30px var(--color-medium-blue);
+  box-shadow: 0 -5px 15px var(--color-medium-blue);
 }
 
 .input__container {
@@ -111,7 +111,7 @@ li {
 }
 
 .add-icon {
-  transition: all 200ms ease;
+  transition: all 100ms linear;
   transform: rotate(45deg);
   color: var(--color-blue);
   font-size: 30px;
@@ -155,7 +155,7 @@ li {
 }
 
 .check-btn {
-  transition: all 200ms ease;
+  transition: all 100ms linear;
   color: var(--color-dark-white);
 }
 

@@ -5,33 +5,6 @@ const items = document.querySelector('.items');
 
 let id = 0;
 
-function createItem(text) {
-  const li = document.createElement('li');
-  li.setAttribute('class', 'item');
-  li.setAttribute('data-id', id);
-  li.innerHTML = `
-    <span>${text}</span>
-    <div class="item__btns">
-      <button class="check-btn">
-        <i class="fa-solid fa-circle-check check-icon" data-id="${id}"></i>
-      </button>
-      <button class='delete-btn'>
-        <i class="fa-solid fa-circle-xmark delete-icon" data-id="${id}"></i>
-      </button>
-    </div>
-  `;
-  id++;
-  return li;
-}
-
-items.addEventListener('click', (event) => {
-  if (event.target === items) {
-    return;
-  } else {
-    onClickBtn(event);
-  }
-});
-
 function onClickBtn(event) {
   const selectedIcon = event.target;
   const selectedBtn = event.target.parentNode;
@@ -68,6 +41,33 @@ function onClickBtn(event) {
     default:
       return;
   }
+}
+
+items.addEventListener('click', (event) => {
+  if (event.target === items) {
+    return;
+  } else {
+    onClickBtn(event);
+  }
+});
+
+function createItem(text) {
+  const li = document.createElement('li');
+  li.setAttribute('class', 'item');
+  li.setAttribute('data-id', id);
+  li.innerHTML = `
+    <span>${text}</span>
+    <div class="item__btns">
+      <button class="check-btn">
+        <i class="fa-solid fa-circle-check check-icon" data-id="${id}"></i>
+      </button>
+      <button class='delete-btn'>
+        <i class="fa-solid fa-circle-xmark delete-icon" data-id="${id}"></i>
+      </button>
+    </div>
+  `;
+  id++;
+  return li;
 }
 
 function onSubmit() {
