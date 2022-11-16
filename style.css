@@ -1,10 +1,12 @@
 :root {
   /* Colors */
   --color-yellow: #f1c102;
+  --color-green: #00695c;
+  --color-blue: #0277bd;
+  --color-dark-blue: #002f6c;
   --color-dark-white: #e0e0e0;
   --color-light-white: #fafafa;
   --color-red: #b71c1c;
-  --color-orange: #d84315;
 
   /* Animation */
   --animation-duration: 500ms;
@@ -46,7 +48,7 @@ li {
 
 .header {
   display: flex;
-  background-color: var(--color-yellow);
+  background-color: var(--color-blue);
   height: 100vh;
   padding: 20px;
 }
@@ -58,7 +60,8 @@ li {
 }
 
 .list-title span {
-  color: var(--color-orange);
+  font-size: 30px;
+  color: var(--color-dark-blue);
 }
 
 .contents {
@@ -106,9 +109,14 @@ li {
 }
 
 .add-icon {
+  transition: all 200ms ease;
   transform: rotate(45deg);
-  color: var(--color-yellow);
+  color: var(--color-blue);
   font-size: 25px;
+}
+
+.add-icon:active {
+  color: var(--color-dark-blue);
 }
 
 .items {
@@ -144,11 +152,16 @@ li {
 }
 
 .check-btn {
+  transition: all 200ms ease;
   color: var(--color-dark-white);
 }
 
+.check-btn:active {
+  color: var(--color-dark-blue);
+}
+
 .checked {
-  color: var(--color-yellow);
+  color: var(--color-blue);
 }
 
 .check-icon {
