@@ -1,12 +1,14 @@
 :root {
   /* Colors */
-  --color-yellow: #f1c102;
-  --color-green: #00695c;
   --color-blue: #0277bd;
+  --color-medium-blue: #004c8c;
   --color-dark-blue: #002f6c;
   --color-dark-white: #e0e0e0;
   --color-light-white: #fafafa;
   --color-red: #b71c1c;
+
+  --color-yellow: #f1c102;
+  --color-green: #00695c;
 
   /* Animation */
   --animation-duration: 500ms;
@@ -50,18 +52,17 @@ li {
   display: flex;
   background-color: var(--color-blue);
   height: 100vh;
-  padding: 20px;
 }
 
 .list-title {
-  margin: 0;
+  margin: 10px 0 0 20px;
   font-family: 'Fugaz One', cursive;
   font-size: 23px;
 }
 
 .list-title span {
   font-size: 30px;
-  color: var(--color-dark-blue);
+  color: var(--color-dark-white);
 }
 
 .contents {
@@ -70,11 +71,11 @@ li {
   width: 100%;
   height: 100%;
   background-color: white;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
   font-family: 'Saira Semi Condensed', sans-serif;
   padding-bottom: 20px;
-  box-shadow: 0 5px 10px var(--color-dark-blue);
+  box-shadow: 0 -5px 30px var(--color-medium-blue);
 }
 
 .input__container {

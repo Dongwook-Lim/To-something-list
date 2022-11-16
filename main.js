@@ -5,26 +5,6 @@ const items = document.querySelector('.items');
 
 let id = 0;
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  onSubmit();
-});
-
-function onSubmit() {
-  const text = input.value;
-  if (text === '') {
-    input.focus();
-    return;
-  }
-
-  const newItem = createItem(text);
-  newItem.classList.add('moving-down');
-  items.insertBefore(newItem, items.firstChild);
-
-  input.value = '';
-  input.focus();
-}
-
 function createItem(text) {
   const li = document.createElement('li');
   li.setAttribute('class', 'item');
@@ -89,3 +69,23 @@ function onClickBtn(event) {
       return;
   }
 }
+
+function onSubmit() {
+  const text = input.value;
+  if (text === '') {
+    input.focus();
+    return;
+  }
+
+  const newItem = createItem(text);
+  newItem.classList.add('moving-down');
+  items.insertBefore(newItem, items.firstChild);
+
+  input.value = '';
+  input.focus();
+}
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  onSubmit();
+});
