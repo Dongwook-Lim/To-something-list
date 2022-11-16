@@ -74,6 +74,7 @@ li {
   border-top-right-radius: 15px;
   font-family: 'Saira Semi Condensed', sans-serif;
   padding-bottom: 20px;
+  box-shadow: 0 5px 10px var(--color-dark-blue);
 }
 
 .input__container {
@@ -112,7 +113,7 @@ li {
   transition: all 200ms ease;
   transform: rotate(45deg);
   color: var(--color-blue);
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .add-icon:active {
@@ -121,7 +122,7 @@ li {
 
 .items {
   height: 500px;
-  margin: 16px 0 0 0;
+  margin: 20px 0 0 0;
   overflow-y: auto;
 }
 
@@ -136,10 +137,11 @@ li {
   width: 95%;
   height: 50px;
   border-radius: 25px;
-  background-color: var(--color-light-white);
+  background-color: white;
   font-size: 18px;
   padding: 0 12px 0 18px;
-  margin: 0 auto 8px auto;
+  margin: 0 auto 12px auto;
+  box-shadow: 5px 5px 15px var(--color-dark-white);
 }
 
 .item .blur {
