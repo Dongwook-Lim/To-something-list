@@ -3,40 +3,67 @@ const form = document.querySelector('.new-form');
 const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
 
-let id = 0;
+const Todo_LS = 'todos';
+const Tobuy_LS = 'tobuys';
+
+function deleteItem(selectedItem, selectedText) {
+  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+  savedItems.forEach((item) => {
+    if (item.text === selectedText) {
+      savedItems.splice(savedItems.indexOf(item), 1);
+    }
+  });
+  localStorage.setItem(Todo_LS, JSON.stringify(savedItems));
+
+  selectedItem.classList.add('vanish');
+  setTimeout(() => {
+    selectedItem.remove();
+  }, 500);
+}
+
+function checkItem(savedItems, selectedText, index) {
+  for (let i = 0; i < savedItems.length; i++) {
+    if (savedItems[i].text === selectedText) {
+      const selectedItem = savedItems[i];
+      savedItems.splice(i, 1);
+      savedItems.splice(index, 0, selectedItem);
+      selectedItem.checked = !selectedItem.checked;
+      break;
+    }
+  }
+  localStorage.setItem(Todo_LS, JSON.stringify(savedItems));
+}
 
 function onClickBtn(event) {
   const selectedIcon = event.target;
-  const selectedBtn = event.target.parentNode;
+  const selectedBtn = selectedIcon.parentNode;
   const selectedBtnClassName = selectedBtn.className;
-  const selectedId = event.target.dataset.id;
-  const selectedItem = document.querySelector(`.item[data-id='${selectedId}']`);
-  const selectedItemText = selectedItem.children[0];
+  const selectedItem = selectedIcon.parentNode.parentNode.parentNode;
+  const selectedSpan = selectedItem.children[0];
+  const selectedText = selectedSpan.textContent;
 
   switch (selectedBtnClassName) {
     case 'check-btn':
+      let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
       selectedIcon.classList.toggle('checked');
-      selectedItemText.classList.toggle('blur');
-
+      selectedSpan.classList.toggle('blur');
       switch (selectedIcon.classList.contains('checked')) {
         case true:
+          checkItem(savedItems, selectedText, 0);
           selectedItem.classList.remove('moving-up');
           selectedItem.classList.add('moving-down');
           items.appendChild(selectedItem);
           break;
         case false:
+          checkItem(savedItems, selectedText, savedItems.length);
           selectedItem.classList.remove('moving-down');
           selectedItem.classList.add('moving-up');
           items.insertBefore(selectedItem, items.firstChild);
           break;
       }
-
       break;
     case 'delete-btn':
-      selectedItem.classList.add('vanish');
-      setTimeout(() => {
-        selectedItem.remove();
-      }, 500);
+      deleteItem(selectedItem, selectedText);
       break;
     default:
       return;
@@ -54,19 +81,17 @@ items.addEventListener('click', (event) => {
 function createItem(text) {
   const li = document.createElement('li');
   li.setAttribute('class', 'item');
-  li.setAttribute('data-id', id);
   li.innerHTML = `
     <span>${text}</span>
     <div class="item__btns">
       <button class="check-btn">
-        <i class="fa-solid fa-circle-check check-icon" data-id="${id}"></i>
+        <i class="fa-solid fa-circle-check check-icon"></i>
       </button>
       <button class='delete-btn'>
-        <i class="fa-solid fa-circle-xmark delete-icon" data-id="${id}"></i>
+        <i class="fa-solid fa-circle-xmark delete-icon"></i>
       </button>
     </div>
   `;
-  id++;
   return li;
 }
 
@@ -78,6 +103,13 @@ function onSubmit() {
   }
 
   const newItem = createItem(text);
+  localStorage.setItem(
+    Todo_LS,
+    JSON.stringify([
+      ...JSON.parse(localStorage.getItem(Todo_LS) || '[]'),
+      { text: text, checked: false },
+    ])
+  );
   newItem.classList.add('moving-down');
   items.insertBefore(newItem, items.firstChild);
 
@@ -88,4 +120,34 @@ function onSubmit() {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   onSubmit();
+});
+
+function loadItems() {
+  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+  if (savedItems === null) {
+    return;
+  } else {
+    savedItems.forEach((item) => {
+      const li = document.createElement('li');
+      li.setAttribute('class', 'item');
+      li.innerHTML = `
+    <span class="${item.checked ? 'blur' : ''}">${item.text}</span>
+    <div class="item__btns">
+      <button class="check-btn">
+        <i class="fa-solid fa-circle-check check-icon ${
+          item.checked ? 'checked' : ''
+        }"></i>
+      </button>
+      <button class='delete-btn'>
+        <i class="fa-solid fa-circle-xmark delete-icon"></i>
+      </button>
+    </div>
+    `;
+      items.insertBefore(li, items.children[0]);
+    });
+  }
+}
+
+window.addEventListener('load', () => {
+  loadItems();
 });

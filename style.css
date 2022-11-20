@@ -1,10 +1,9 @@
 :root {
   /* Colors */
-  --color-blue: #0277bd;
-  --color-medium-blue: #004c8c;
-  --color-dark-blue: #002f6c;
+  --color-blue: #283593;
+  --color-dark-blue: #001064;
+  --color-white: white;
   --color-dark-white: #e0e0e0;
-  --color-light-white: #fafafa;
   --color-red: #b71c1c;
 
   --color-yellow: #f1c102;
@@ -57,12 +56,13 @@ li {
 .list-title {
   margin: 20px;
   font-family: 'Fugaz One', cursive;
-  font-size: 23px;
+  font-size: 25px;
+  color: var(--color-white);
 }
 
 .list-title span {
-  font-size: 30px;
-  color: var(--color-dark-white);
+  font-size: 25px;
+  color: var(--color-white);
 }
 
 .contents {
@@ -75,7 +75,7 @@ li {
   border-top-right-radius: 22px;
   font-family: 'Saira Semi Condensed', sans-serif;
   padding-bottom: 20px;
-  box-shadow: 0 -5px 15px var(--color-medium-blue);
+  box-shadow: 0 -5px 10px var(--color-dark-blue);
 }
 
 .input__container {
@@ -117,10 +117,6 @@ li {
   font-size: 30px;
 }
 
-.add-icon:active {
-  color: var(--color-dark-blue);
-}
-
 .items {
   height: 500px;
   margin: 20px 0 0 0;
@@ -157,10 +153,6 @@ li {
 .check-btn {
   transition: all 100ms linear;
   color: var(--color-dark-white);
-}
-
-.check-btn:active {
-  color: var(--color-dark-blue);
 }
 
 .checked {
