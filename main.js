@@ -95,13 +95,7 @@ function createItem(text) {
   return li;
 }
 
-function onSubmit() {
-  const text = input.value;
-  if (text === '') {
-    input.focus();
-    return;
-  }
-
+function addItem(text) {
   const newItem = createItem(text);
   localStorage.setItem(
     Todo_LS,
@@ -117,6 +111,24 @@ function onSubmit() {
   input.focus();
 }
 
+function onSubmit() {
+  const text = input.value;
+  if (text === '') {
+    input.focus();
+    return;
+  }
+
+  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+  for (let i = 0; i < savedItems.length; i++) {
+    if (text === savedItems[i].text) {
+      alert('Already Exist!😳');
+      input.value = '';
+      return;
+    }
+  }
+  addItem(text);
+}
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   onSubmit();
@@ -125,6 +137,7 @@ form.addEventListener('submit', (event) => {
 function loadItems() {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
   if (savedItems === null) {
+    localStorage.setItem(Todo_LS, JSON.stringify([]));
     return;
   } else {
     savedItems.forEach((item) => {
