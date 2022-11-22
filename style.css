@@ -72,6 +72,7 @@ li {
 
 .list-title span {
   font-size: 28px;
+  font-weight: bolder;
   color: var(--color-white);
 }
 
