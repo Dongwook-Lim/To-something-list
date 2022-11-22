@@ -23,6 +23,27 @@ const monthName = [
   'Dec',
 ];
 
+// const nav = document.querySelector('.navigation');
+// nav.addEventListener('click', (event) => {
+//   const icon = event.target.parentNode;
+//   const navItem = icon.parentNode.parentNode;
+//   if (icon.classList.contains('buy-icon')) {
+//     navItem.classList.toggle('active');
+
+//   }
+// });
+
+const navItem = document.querySelectorAll('.nav-item');
+function activeLink() {
+  navItem.forEach((item) => {
+    item.classList.remove('active');
+    this.classList.add('active');
+  });
+}
+navItem.forEach((item) => {
+  item.addEventListener('click', activeLink);
+});
+
 function deleteItem(selectedItem, selectedText) {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
   savedItems.forEach((item) => {
