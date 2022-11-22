@@ -2,9 +2,26 @@ const input = document.querySelector('.input__item');
 const form = document.querySelector('.new-form');
 const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
+const todayDate = document.querySelector('.today-date');
 
 const Todo_LS = 'todos';
 const Tobuy_LS = 'tobuys';
+
+const newDate = new Date();
+const monthName = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 function deleteItem(selectedItem, selectedText) {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
@@ -36,8 +53,7 @@ function checkItem(savedItems, selectedText, index) {
 
 function onClickBtn(event) {
   const selectedIcon = event.target;
-  const selectedBtn = selectedIcon.parentNode;
-  const selectedBtnClassName = selectedBtn.className;
+  const selectedBtnClassName = selectedIcon.parentNode.className;
   const selectedItem = selectedIcon.parentNode.parentNode.parentNode;
   const selectedSpan = selectedItem.children[0];
   const selectedText = selectedSpan.textContent;
@@ -121,7 +137,7 @@ function onSubmit() {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
   for (let i = 0; i < savedItems.length; i++) {
     if (text === savedItems[i].text) {
-      alert('Already Exist!😳');
+      alert('That already exists!😳');
       input.value = '';
       return;
     }
@@ -133,6 +149,13 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   onSubmit();
 });
+
+function setDate() {
+  const year = newDate.getYear() - 100;
+  const month = monthName[newDate.getMonth()];
+  const date = newDate.getDate();
+  todayDate.innerText = `${month} ${date}, ${year}`;
+}
 
 function loadItems() {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
@@ -163,4 +186,5 @@ function loadItems() {
 
 window.addEventListener('load', () => {
   loadItems();
+  setDate();
 });
