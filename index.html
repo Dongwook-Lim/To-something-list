@@ -18,7 +18,7 @@
   </head>
   <body>
     <header class="header">
-      <h4 class="list-title"><span>To Do</span> List</h4>
+      <h4 class="list-title"><span>To-Do</span> List</h4>
       <span class="today-date"></span>
     </header>
 
@@ -31,8 +31,29 @@
           </button>
         </form>
       </div>
-
       <ul class="items"></ul>
     </section>
+
+    <div class="navigation">
+      <ul>
+        <li class="nav-item active">
+          <a href="#">
+            <span class="nav-icon do-icon">
+              <i class="fa-solid fa-briefcase"></i>
+            </span>
+            <span class="nav-text do-text">Do</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#">
+            <span class="nav-icon buy-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </span>
+            <span class="nav-text buy- text">Buy</span>
+          </a>
+        </li>
+        <div class="indicator"></div>
+      </ul>
+    </div>
   </body>
 </html>

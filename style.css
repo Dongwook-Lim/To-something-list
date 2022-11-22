@@ -1,10 +1,12 @@
 :root {
   /* Colors */
   --color-blue: #283593;
+  --color-light-blue: #5f5fc4;
   --color-dark-blue: #001064;
   --color-white: white;
   --color-dark-white: #e0e0e0;
   --color-red: #b71c1c;
+  --color-black: black;
 
   --color-yellow: #f1c102;
   --color-green: #00695c;
@@ -86,10 +88,10 @@ li {
   width: 100%;
   height: 100%;
   background-color: white;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   padding-bottom: 20px;
-  box-shadow: 0 -5px 10px var(--color-dark-blue);
+  /* box-shadow: 0 -5px 10px var(--color-dark-blue); */
 }
 
 .input__container {
@@ -98,13 +100,14 @@ li {
 }
 
 .new-form {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-left: 15px;
 }
 
 .input__item {
-  width: 95%;
+  width: 60%;
   height: 45px;
   border: 1.5px solid var(--color-dark-white);
   border-radius: 22px;
@@ -121,7 +124,7 @@ li {
 
 .add-btn {
   position: absolute;
-  right: 5%;
+  left: 50%;
 }
 
 .add-icon {
@@ -185,6 +188,117 @@ li {
 .delete-icon {
   font-size: 25px;
   padding: 2px;
+}
+
+.navigation {
+  position: absolute;
+  width: 150px;
+  top: 90px;
+  right: 0;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.navigation ul li {
+  position: relative;
+  width: 55px;
+  height: 55px;
+}
+
+.navigation ul li a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav-icon {
+  position: relative;
+  line-height: 55px;
+  font-size: 1.5em;
+  text-align: center;
+  color: var(--color-black);
+  transition: var(--animation-duration);
+  z-index: 2;
+}
+
+.do-icon {
+  color: var(--color-blue);
+}
+
+.buy-icon {
+  color: var(--color-yellow);
+}
+
+.navigation ul li.active a .nav-icon {
+  transform: translateY(-45px);
+  color: var(--color-white);
+}
+
+.nav-text {
+  position: absolute;
+  color: var(--color-black);
+  font-size: 1.3em;
+  font-weight: bolder;
+  letter-spacing: 0.03em;
+  transform: translateY(20px);
+  transition: var(--animation-duration);
+  opacity: 0;
+}
+
+.do-text {
+  color: var(--color-blue);
+}
+
+.buy-text {
+  color: var(--color-yellow);
+}
+
+.navigation ul li.active a .nav-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.indicator {
+  position: absolute;
+  left: 8.5px;
+  top: -40%;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: var(--color-light-blue);
+  border: 6px solid var(--color-blue);
+  z-index: 1;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  top: 54%;
+  left: -17.5px;
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  border-top-right-radius: 15px;
+  box-shadow: 0px -6px 0 0 var(--color-blue);
+}
+
+.indicator::after {
+  content: '';
+  position: absolute;
+  top: 54%;
+  right: -17.5px;
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  border-top-left-radius: 15px;
+  box-shadow: 0px -6px 0 0 var(--color-blue);
 }
 
 .moving-up {
