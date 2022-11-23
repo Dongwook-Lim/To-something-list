@@ -92,17 +92,17 @@ function checkItem(savedItems, selectedText, index) {
 
 function onClickBtn(event) {
   const selectedIcon = event.target;
-  const selectedBtnClassName = selectedIcon.parentNode.className;
+  const selectedBtn = selectedIcon.parentNode;
   const selectedItem = selectedIcon.parentNode.parentNode.parentNode.parentNode;
   const selectedSpan = selectedItem.children[0];
   const selectedText = selectedSpan.textContent;
 
-  switch (selectedBtnClassName) {
-    case 'check-btn':
+  switch (selectedIcon.classList.contains('check-icon')) {
+    case true:
       let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
-      selectedIcon.classList.toggle('checked');
+      selectedBtn.classList.toggle('checked');
       selectedSpan.classList.toggle('blur');
-      switch (selectedIcon.classList.contains('checked')) {
+      switch (selectedBtn.classList.contains('checked')) {
         case true:
           checkItem(savedItems, selectedText, 0);
           selectedItem.classList.remove('moving-up');
@@ -117,7 +117,7 @@ function onClickBtn(event) {
           break;
       }
       break;
-    case 'delete-btn':
+    case false:
       deleteItem(selectedItem, selectedText);
       break;
     default:
@@ -132,6 +132,16 @@ items.addEventListener('click', (event) => {
     onClickBtn(event);
   }
 });
+
+function saveItemLS(text, date, time) {
+  localStorage.setItem(
+    Todo_LS,
+    JSON.stringify([
+      ...JSON.parse(localStorage.getItem(Todo_LS) || '[]'),
+      { text: text, checked: false, time: [date, time] },
+    ])
+  );
+}
 
 function setTime(span) {
   const currentTime = new Date();
@@ -178,18 +188,17 @@ function createItem(text) {
   itemFooter.appendChild(itemBtns);
 
   li.appendChild(itemFooter);
+
+  const itemDateText = itemDate.textContent;
+  const itemTimeText = itemTime.textContent;
+  saveItemLS(text, itemDateText, itemTimeText);
+
   return li;
 }
 
 function addItem(text) {
   const newItem = createItem(text);
-  localStorage.setItem(
-    Todo_LS,
-    JSON.stringify([
-      ...JSON.parse(localStorage.getItem(Todo_LS) || '[]'),
-      { text: text, checked: false },
-    ])
-  );
+
   newItem.classList.add('moving-down');
   items.insertBefore(newItem, items.firstChild);
 
@@ -238,19 +247,44 @@ function loadItems() {
     savedItems.forEach((item) => {
       const li = document.createElement('li');
       li.setAttribute('class', 'item');
-      li.innerHTML = `
-    <span class="${item.checked ? 'blur' : ''}">${item.text}</span>
-    <div class="item__btns">
-      <button class="check-btn">
-        <i class="fa-solid fa-circle-check check-icon ${
-          item.checked ? 'checked' : ''
-        }"></i>
-      </button>
-      <button class='delete-btn'>
-        <i class="fa-solid fa-circle-xmark delete-icon"></i>
-      </button>
-    </div>
-    `;
+
+      const span = document.createElement('span');
+      span.setAttribute('class', `${item.checked ? 'blur' : ''}`);
+      span.innerText = `${item.text}`;
+      li.appendChild(span);
+
+      const itemFooter = document.createElement('div');
+      itemFooter.setAttribute('class', 'item-footer');
+
+      const itemContent = document.createElement('div');
+      itemContent.setAttribute('class', 'item-content');
+      const itemDate = document.createElement('span');
+      itemDate.setAttribute('class', 'item-date');
+      itemDate.innerText = `${item.time[0]}`;
+      const itemTime = document.createElement('span');
+      itemTime.setAttribute('class', 'item-time');
+      itemTime.innerText = `${item.time[1]}`;
+      itemContent.appendChild(itemDate);
+      itemContent.appendChild(itemTime);
+      itemFooter.appendChild(itemContent);
+
+      const itemBtns = document.createElement('div');
+      itemBtns.setAttribute('class', 'item__btns');
+      const checkBtn = document.createElement('button');
+      checkBtn.setAttribute(
+        'class',
+        `check-btn ${item.checked ? 'checked' : ''}`
+      );
+      checkBtn.innerHTML = `<i class="fa-solid fa-circle-check check-icon"></i>`;
+      const deleteBtn = document.createElement('button');
+      deleteBtn.setAttribute('class', 'delete-btn');
+      deleteBtn.innerHTML = `<i class="fa-solid fa-circle-xmark delete-icon"></i>`;
+      itemBtns.appendChild(checkBtn);
+      itemBtns.appendChild(deleteBtn);
+      itemFooter.appendChild(itemBtns);
+
+      li.appendChild(itemFooter);
+
       items.insertBefore(li, items.children[0]);
     });
   }
