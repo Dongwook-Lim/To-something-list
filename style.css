@@ -24,6 +24,8 @@
 
 html {
   height: 100%;
+  background-color: var(--theme-color);
+  transition: var(--animation-duration);
 }
 
 body {
@@ -69,10 +71,8 @@ li {
 .header {
   display: flex;
   flex-direction: column;
-  background-color: var(--theme-color);
   height: 100%;
   padding: 20px;
-  transition: var(--animation-duration);
 }
 
 .list-title {
@@ -85,6 +85,7 @@ li {
   font-weight: bolder;
   color: var(--sub-theme-color);
   width: 95px;
+  transition: var(--animation-duration);
 }
 
 .list-title__list {
