@@ -15,7 +15,6 @@ const DoSubThemeColor = '#5f5fc4';
 const BuyThemeColor = '#f9a825';
 const BuySubThemeColor = '#ffd95a';
 
-const newDate = new Date();
 const monthName = [
   'Jan',
   'Feb',
@@ -134,18 +133,31 @@ items.addEventListener('click', (event) => {
   }
 });
 
+function setTime(span) {
+  const currentTime = new Date();
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  span.innerText = `${hours}:${minutes}`;
+}
+
 function createItem(text) {
   const li = document.createElement('li');
   li.setAttribute('class', 'item');
   li.innerHTML = `
     <span>${text}</span>
-    <div class="item__btns">
-      <button class="check-btn">
-        <i class="fa-solid fa-circle-check check-icon"></i>
-      </button>
-      <button class='delete-btn'>
-        <i class="fa-solid fa-circle-xmark delete-icon"></i>
-      </button>
+    <div class="item-footer">
+      <div class="item-time>
+        <span class="item-time__date"></span>
+        <span class="item-time__time"></span>
+      </div>
+      <div class="item__btns">
+        <button class="check-btn">
+          <i class="fa-solid fa-circle-check check-icon"></i>
+        </button>
+        <button class='delete-btn'>
+          <i class="fa-solid fa-circle-xmark delete-icon"></i>
+        </button>
+      </div>
     </div>
   `;
   return li;
@@ -190,12 +202,13 @@ form.addEventListener('submit', (event) => {
   onSubmit();
 });
 
-function setDate() {
+function setDate(span) {
+  const newDate = new Date();
   const year = newDate.getYear() - 100;
   const month = monthName[newDate.getMonth()];
   const date = newDate.getDate();
   const week = weekDay[newDate.getDay()];
-  todayDate.innerText = `${week}, ${month} ${date}, ${year}`;
+  span.innerText = `${week}, ${month} ${date}, ${year}`;
 }
 
 function loadItems() {
@@ -227,5 +240,5 @@ function loadItems() {
 
 window.addEventListener('load', () => {
   loadItems();
-  setDate();
+  setDate(todayDate);
 });
