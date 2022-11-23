@@ -28,6 +28,7 @@ const monthName = [
   'Nov',
   'Dec',
 ];
+const weekDay = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 const nav = document.querySelector('.navigation');
 const navItems = document.querySelectorAll('.nav-item');
@@ -200,7 +201,8 @@ function setDate() {
   const year = newDate.getYear() - 100;
   const month = monthName[newDate.getMonth()];
   const date = newDate.getDate();
-  todayDate.innerText = `${month} ${date}, ${year}`;
+  const week = weekDay[newDate.getDay()];
+  todayDate.innerText = `${week}, ${month} ${date}, ${year}`;
 }
 
 function loadItems() {
