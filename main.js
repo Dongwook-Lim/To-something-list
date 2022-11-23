@@ -4,6 +4,8 @@ const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
 const todayDate = document.querySelector('.today-date');
 const listTitleText = document.querySelector('.list-title__text');
+const nav = document.querySelector('.navigation');
+const navItems = document.querySelectorAll('.nav-item');
 
 const Todo_LS = 'todos';
 const Tobuy_LS = 'tobuys';
@@ -30,9 +32,16 @@ const monthName = [
 ];
 const weekDay = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-const nav = document.querySelector('.navigation');
-const navItems = document.querySelectorAll('.nav-item');
-nav.addEventListener('click', (event) => {
+function changeThemeColor(themeColor, subThemeColor, text) {
+  document.documentElement.style.setProperty('--theme-color', themeColor);
+  document.documentElement.style.setProperty(
+    '--sub-theme-color',
+    subThemeColor
+  );
+  listTitleText.innerText = text;
+}
+
+function onClickNav(event) {
   const target = event.target;
   const icon = target.parentNode;
   const navItem = icon.parentNode.parentNode;
@@ -48,27 +57,11 @@ nav.addEventListener('click', (event) => {
   } else {
     changeThemeColor(DoThemeColor, DoSubThemeColor, 'To-Do');
   }
-});
-
-function changeThemeColor(themeColor, subThemeColor, text) {
-  document.documentElement.style.setProperty('--theme-color', themeColor);
-  document.documentElement.style.setProperty(
-    '--sub-theme-color',
-    subThemeColor
-  );
-  listTitleText.innerText = text;
 }
 
-// const navItem = document.querySelectorAll('.nav-item');
-// function activeLink() {
-//   navItem.forEach((item) => {
-//     item.classList.remove('active');
-//     this.classList.add('active');
-//   });
-// }
-// navItem.forEach((item) => {
-//   item.addEventListener('click', activeLink);
-// });
+nav.addEventListener('click', (event) => {
+  onClickNav(event);
+});
 
 function deleteItem(selectedItem, selectedText) {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
