@@ -137,29 +137,47 @@ function setTime(span) {
   const currentTime = new Date();
   const hours = currentTime.getHours();
   const minutes = currentTime.getMinutes();
-  span.innerText = `${hours}:${minutes}`;
+  span.innerText = `${hours < 10 ? '0' + hours : hours}:${
+    minutes < 10 ? '0' + minutes : minutes
+  }`;
 }
 
 function createItem(text) {
   const li = document.createElement('li');
   li.setAttribute('class', 'item');
-  li.innerHTML = `
-    <span>${text}</span>
-    <div class="item-footer">
-      <div class="item-time>
-        <span class="item-time__date"></span>
-        <span class="item-time__time"></span>
-      </div>
-      <div class="item__btns">
-        <button class="check-btn">
-          <i class="fa-solid fa-circle-check check-icon"></i>
-        </button>
-        <button class='delete-btn'>
-          <i class="fa-solid fa-circle-xmark delete-icon"></i>
-        </button>
-      </div>
-    </div>
-  `;
+
+  const span = document.createElement('span');
+  span.innerText = `${text}`;
+  li.appendChild(span);
+
+  const itemFooter = document.createElement('div');
+  itemFooter.setAttribute('class', 'item-footer');
+
+  const itemContent = document.createElement('div');
+  itemContent.setAttribute('class', 'item-content');
+  const itemDate = document.createElement('span');
+  itemDate.setAttribute('class', 'item-date');
+  setDate(itemDate);
+  const itemTime = document.createElement('span');
+  itemTime.setAttribute('class', 'item-time');
+  setTime(itemTime);
+  itemContent.appendChild(itemDate);
+  itemContent.appendChild(itemTime);
+  itemFooter.appendChild(itemContent);
+
+  const itemBtns = document.createElement('div');
+  itemBtns.setAttribute('class', 'item__btns');
+  const checkBtn = document.createElement('button');
+  checkBtn.setAttribute('class', 'check-btn');
+  checkBtn.innerHTML = `<i class="fa-solid fa-circle-check check-icon"></i>`;
+  const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('class', 'delete-btn');
+  deleteBtn.innerHTML = `<i class="fa-solid fa-circle-xmark delete-icon"></i>`;
+  itemBtns.appendChild(checkBtn);
+  itemBtns.appendChild(deleteBtn);
+  itemFooter.appendChild(itemBtns);
+
+  li.appendChild(itemFooter);
   return li;
 }
 

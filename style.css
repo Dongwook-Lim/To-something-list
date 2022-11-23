@@ -13,6 +13,7 @@
   --color-dark-white: #e0e0e0;
   --color-red: #b71c1c;
   --color-black: black;
+  --color-gray: gray;
 
   /* Animation */
   --animation-duration: 500ms;
@@ -174,6 +175,27 @@ li {
 
 .item .blur {
   opacity: 0.3;
+}
+
+.item-footer {
+  display: flex;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--color-gray);
+  margin-right: 10px;
+  line-height: 16px;
+}
+
+.item-date {
+  font-size: 12px;
+}
+
+.item-time {
+  font-size: 16px;
 }
 
 .item__btns {
