@@ -1,8 +1,10 @@
 :root {
   /* Colors */
+  --theme-color: #283593;
+  --sub-theme-color: #5f5fc4;
+
   --color-blue: #283593;
   --color-light-blue: #5f5fc4;
-  --color-dark-blue: #001064;
 
   --color-yellow: #f9a825;
   --color-light-yellow: #ffd95a;
@@ -47,7 +49,8 @@ button {
   padding: 0;
 }
 
-button {
+button,
+a {
   -webkit-tap-highlight-color: transparent !important;
 }
 
@@ -62,25 +65,32 @@ li {
 .header {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-blue);
+  background-color: var(--theme-color);
   height: 100vh;
   padding: 20px;
+  transition: var(--animation-duration);
 }
 
 .list-title {
-  font-size: 28px;
-  color: var(--color-dark-white);
+  display: flex;
   line-height: 30px;
 }
 
-.list-title span {
-  font-size: 28px;
+.list-title__text {
+  font-size: 30px;
   font-weight: bolder;
+  color: var(--sub-theme-color);
+  width: 95px;
+}
+
+.list-title__list {
+  font-size: 28px;
+
   color: var(--color-white);
 }
 
 .today-date {
-  color: var(--color-dark-white);
+  color: var(--color-white);
 }
 
 .contents {
@@ -104,10 +114,11 @@ li {
   display: flex;
   align-items: center;
   margin-left: 15px;
+  width: 60%;
 }
 
 .input__item {
-  width: 60%;
+  width: 100%;
   height: 45px;
   border: 1.5px solid var(--color-dark-white);
   border-radius: 22px;
@@ -124,14 +135,14 @@ li {
 
 .add-btn {
   position: absolute;
-  left: 50%;
+  right: 10px;
 }
 
 .add-icon {
-  transition: all 100ms linear;
   transform: rotate(45deg);
-  color: var(--color-blue);
+  color: var(--theme-color);
   font-size: 30px;
+  transition: var(--animation-duration);
 }
 
 .items {
@@ -173,12 +184,13 @@ li {
 }
 
 .checked {
-  color: var(--color-blue);
+  color: var(--theme-color);
 }
 
 .check-icon {
   font-size: 25px;
   padding: 2px;
+  transition: var(--animation-duration);
 }
 
 .delete-btn {
@@ -272,7 +284,7 @@ li {
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  border: 6px solid var(--color-blue);
+  border: 6px solid var(--theme-color);
   z-index: 1;
   transition: var(--animation-duration);
 }
@@ -286,7 +298,8 @@ li {
   height: 15px;
   background: transparent;
   border-top-right-radius: 15px;
-  box-shadow: 0px -6px 0 0 var(--color-blue);
+  box-shadow: 0px -6px 0 0 var(--theme-color);
+  transition: var(--animation-duration);
 }
 
 .indicator::after {
@@ -298,7 +311,8 @@ li {
   height: 15px;
   background: transparent;
   border-top-left-radius: 15px;
-  box-shadow: 0px -6px 0 0 var(--color-blue);
+  box-shadow: 0px -6px 0 0 var(--theme-color);
+  transition: var(--animation-duration);
 }
 
 .navigation ul li:nth-child(1).active ~ .indicator {

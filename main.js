@@ -3,9 +3,15 @@ const form = document.querySelector('.new-form');
 const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
 const todayDate = document.querySelector('.today-date');
+const listTitleText = document.querySelector('.list-title__text');
 
 const Todo_LS = 'todos';
 const Tobuy_LS = 'tobuys';
+
+const DoThemeColor = '#283593';
+const DoSubThemeColor = '#5f5fc4';
+const BuyThemeColor = '#f9a825';
+const BuySubThemeColor = '#ffd95a';
 
 const newDate = new Date();
 const monthName = [
@@ -23,26 +29,45 @@ const monthName = [
   'Dec',
 ];
 
-// const nav = document.querySelector('.navigation');
-// nav.addEventListener('click', (event) => {
-//   const icon = event.target.parentNode;
-//   const navItem = icon.parentNode.parentNode;
-//   if (icon.classList.contains('buy-icon')) {
-//     navItem.classList.toggle('active');
-
-//   }
-// });
-
-const navItem = document.querySelectorAll('.nav-item');
-function activeLink() {
-  navItem.forEach((item) => {
+const nav = document.querySelector('.navigation');
+const navItems = document.querySelectorAll('.nav-item');
+nav.addEventListener('click', (event) => {
+  const target = event.target;
+  const icon = target.parentNode;
+  const navItem = icon.parentNode.parentNode;
+  if (!target.classList.contains('fa-solid')) {
+    return;
+  }
+  navItems.forEach((item) => {
     item.classList.remove('active');
-    this.classList.add('active');
+    navItem.classList.add('active');
   });
-}
-navItem.forEach((item) => {
-  item.addEventListener('click', activeLink);
+  if (icon.classList.contains('buy-icon')) {
+    changeThemeColor(BuyThemeColor, BuySubThemeColor, 'To-Buy');
+  } else {
+    changeThemeColor(DoThemeColor, DoSubThemeColor, 'To-Do');
+  }
 });
+
+function changeThemeColor(themeColor, subThemeColor, text) {
+  document.documentElement.style.setProperty('--theme-color', themeColor);
+  document.documentElement.style.setProperty(
+    '--sub-theme-color',
+    subThemeColor
+  );
+  listTitleText.innerText = text;
+}
+
+// const navItem = document.querySelectorAll('.nav-item');
+// function activeLink() {
+//   navItem.forEach((item) => {
+//     item.classList.remove('active');
+//     this.classList.add('active');
+//   });
+// }
+// navItem.forEach((item) => {
+//   item.addEventListener('click', activeLink);
+// });
 
 function deleteItem(selectedItem, selectedText) {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
