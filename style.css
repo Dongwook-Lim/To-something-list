@@ -26,7 +26,7 @@ body {
   font-family: 'Saira Semi Condensed', sans-serif;
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   margin: 0;
 }
 
@@ -114,7 +114,7 @@ li {
   display: flex;
   align-items: center;
   margin-left: 10px;
-  width: 60%;
+  width: 58%;
 }
 
 .input__item {
@@ -135,7 +135,7 @@ li {
 
 .add-btn {
   position: absolute;
-  right: 10px;
+  right: 8px;
 }
 
 .add-icon {
