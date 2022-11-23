@@ -93,9 +93,13 @@ function checkItem(savedItems, selectedText, index) {
 function onClickBtn(event) {
   const selectedIcon = event.target;
   const selectedBtnClassName = selectedIcon.parentNode.className;
-  const selectedItem = selectedIcon.parentNode.parentNode.parentNode;
+  const selectedItem = selectedIcon.parentNode.parentNode.parentNode.parentNode;
   const selectedSpan = selectedItem.children[0];
   const selectedText = selectedSpan.textContent;
+
+  console.log(selectedIcon);
+  console.log(selectedItem);
+  console.log(selectedSpan);
 
   switch (selectedBtnClassName) {
     case 'check-btn':
