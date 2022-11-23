@@ -33,6 +33,8 @@ body {
   width: 100vw;
   height: 100%;
   margin: 0;
+  background-color: var(--theme-color);
+  transition: var(--animation-duration);
 }
 
 body::-webkit-scrollbar {
@@ -72,8 +74,6 @@ li {
   flex-direction: column;
   height: 100%;
   padding: 20px;
-  background-color: var(--theme-color);
-  transition: var(--animation-duration);
 }
 
 .list-title {

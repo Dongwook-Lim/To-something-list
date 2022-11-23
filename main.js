@@ -97,10 +97,6 @@ function onClickBtn(event) {
   const selectedSpan = selectedItem.children[0];
   const selectedText = selectedSpan.textContent;
 
-  console.log(selectedIcon);
-  console.log(selectedItem);
-  console.log(selectedSpan);
-
   switch (selectedBtnClassName) {
     case 'check-btn':
       let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
