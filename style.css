@@ -12,6 +12,7 @@
   --color-white: white;
   --color-dark-white: #e0e0e0;
   --color-red: #b71c1c;
+  --color-dark-red: #870000;
   --color-black: black;
   --color-gray: gray;
 
@@ -150,7 +151,7 @@ li {
 }
 
 .items {
-  height: 90%;
+  height: 80%;
   width: 100%;
   padding: 20px 10px;
   margin: 0;
@@ -351,6 +352,15 @@ li {
 .navigation ul li:nth-child(2).active ~ .indicator {
   transform: translateX(calc(69px * 1));
   background-color: var(--color-light-yellow);
+}
+
+.reset-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
+  color: var(--color-dark-white);
+  font-family: 'Saira Semi Condensed', sans-serif;
 }
 
 .moving-up {

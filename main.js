@@ -6,6 +6,7 @@ const todayDate = document.querySelector('.today-date');
 const listTitleText = document.querySelector('.list-title__text');
 const nav = document.querySelector('.navigation');
 const navItems = document.querySelectorAll('.nav-item');
+const resetBtn = document.querySelector('.reset-btn');
 
 const Todo_LS = 'todos';
 const Tobuy_LS = 'tobuys';
@@ -30,6 +31,11 @@ const monthName = [
   'Dec',
 ];
 const weekDay = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+resetBtn.addEventListener('click', () => {
+  localStorage.removeItem(Todo_LS);
+  loadItems();
+});
 
 function changeThemeColor(themeColor, subThemeColor, text) {
   document.documentElement.style.setProperty('--theme-color', themeColor);
@@ -244,7 +250,7 @@ function loadItems() {
   let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
   if (savedItems === null) {
     localStorage.setItem(Todo_LS, JSON.stringify([]));
-    return;
+    items.innerHTML = '';
   } else {
     savedItems.forEach((item) => {
       const savedItem = createItem(item.text, item.checked);
