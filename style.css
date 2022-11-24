@@ -171,6 +171,7 @@ li {
   padding: 0 12px 0 18px;
   margin: 0 auto 12px auto;
   box-shadow: 5px 5px 15px var(--color-dark-white);
+  transition: var(--animation-duration);
 }
 
 .item .blur {

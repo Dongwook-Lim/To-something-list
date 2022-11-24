@@ -152,11 +152,12 @@ function setTime(span) {
   }`;
 }
 
-function createItem(text) {
+function createItem(text, checked) {
   const li = document.createElement('li');
   li.setAttribute('class', 'item');
 
   const span = document.createElement('span');
+  span.setAttribute('class', `${checked ? 'blur' : ''}`);
   span.innerText = `${text}`;
   li.appendChild(span);
 
@@ -167,10 +168,8 @@ function createItem(text) {
   itemContent.setAttribute('class', 'item-content');
   const itemDate = document.createElement('span');
   itemDate.setAttribute('class', 'item-date');
-  setDate(itemDate);
   const itemTime = document.createElement('span');
   itemTime.setAttribute('class', 'item-time');
-  setTime(itemTime);
   itemContent.appendChild(itemDate);
   itemContent.appendChild(itemTime);
   itemFooter.appendChild(itemContent);
@@ -178,7 +177,7 @@ function createItem(text) {
   const itemBtns = document.createElement('div');
   itemBtns.setAttribute('class', 'item-btns');
   const checkBtn = document.createElement('button');
-  checkBtn.setAttribute('class', 'check-btn');
+  checkBtn.setAttribute('class', `check-btn ${checked ? 'checked' : ''}`);
   checkBtn.innerHTML = `<i class="fa-solid fa-circle-check check-icon"></i>`;
   const deleteBtn = document.createElement('button');
   deleteBtn.setAttribute('class', 'delete-btn');
@@ -189,18 +188,20 @@ function createItem(text) {
 
   li.appendChild(itemFooter);
 
-  const itemDateText = itemDate.textContent;
-  const itemTimeText = itemTime.textContent;
-  saveItemLS(text, itemDateText, itemTimeText);
-
-  return li;
+  return [li, itemDate, itemTime];
 }
 
 function addItem(text) {
   const newItem = createItem(text);
+  setDate(newItem[1]);
+  setTime(newItem[2]);
 
-  newItem.classList.add('moving-down');
-  items.insertBefore(newItem, items.firstChild);
+  const itemDateText = newItem[1].textContent;
+  const itemTimeText = newItem[2].textContent;
+  saveItemLS(text, itemDateText, itemTimeText);
+
+  newItem[0].classList.add('moving-down');
+  items.insertBefore(newItem[0], items.firstChild);
 
   input.value = '';
   input.focus();
@@ -221,6 +222,7 @@ function onSubmit() {
       return;
     }
   }
+
   addItem(text);
 }
 
@@ -245,47 +247,10 @@ function loadItems() {
     return;
   } else {
     savedItems.forEach((item) => {
-      const li = document.createElement('li');
-      li.setAttribute('class', 'item');
-
-      const span = document.createElement('span');
-      span.setAttribute('class', `${item.checked ? 'blur' : ''}`);
-      span.innerText = `${item.text}`;
-      li.appendChild(span);
-
-      const itemFooter = document.createElement('div');
-      itemFooter.setAttribute('class', 'item-footer');
-
-      const itemContent = document.createElement('div');
-      itemContent.setAttribute('class', 'item-content');
-      const itemDate = document.createElement('span');
-      itemDate.setAttribute('class', 'item-date');
-      itemDate.innerText = `${item.time[0]}`;
-      const itemTime = document.createElement('span');
-      itemTime.setAttribute('class', 'item-time');
-      itemTime.innerText = `${item.time[1]}`;
-      itemContent.appendChild(itemDate);
-      itemContent.appendChild(itemTime);
-      itemFooter.appendChild(itemContent);
-
-      const itemBtns = document.createElement('div');
-      itemBtns.setAttribute('class', 'item-btns');
-      const checkBtn = document.createElement('button');
-      checkBtn.setAttribute(
-        'class',
-        `check-btn ${item.checked ? 'checked' : ''}`
-      );
-      checkBtn.innerHTML = `<i class="fa-solid fa-circle-check check-icon"></i>`;
-      const deleteBtn = document.createElement('button');
-      deleteBtn.setAttribute('class', 'delete-btn');
-      deleteBtn.innerHTML = `<i class="fa-solid fa-circle-xmark delete-icon"></i>`;
-      itemBtns.appendChild(checkBtn);
-      itemBtns.appendChild(deleteBtn);
-      itemFooter.appendChild(itemBtns);
-
-      li.appendChild(itemFooter);
-
-      items.insertBefore(li, items.children[0]);
+      const savedItem = createItem(item.text, item.checked);
+      savedItem[1].innerText = `${item.time[0]}`;
+      savedItem[2].innerText = `${item.time[1]}`;
+      items.insertBefore(savedItem[0], items.children[0]);
     });
   }
 }
