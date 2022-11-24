@@ -126,10 +126,10 @@ function onClickBtn(event) {
 }
 
 items.addEventListener('click', (event) => {
-  if (event.target === items) {
-    return;
-  } else {
+  if (event.target.classList.contains('fa-solid')) {
     onClickBtn(event);
+  } else {
+    return;
   }
 });
 
@@ -176,7 +176,7 @@ function createItem(text) {
   itemFooter.appendChild(itemContent);
 
   const itemBtns = document.createElement('div');
-  itemBtns.setAttribute('class', 'item__btns');
+  itemBtns.setAttribute('class', 'item-btns');
   const checkBtn = document.createElement('button');
   checkBtn.setAttribute('class', 'check-btn');
   checkBtn.innerHTML = `<i class="fa-solid fa-circle-check check-icon"></i>`;
@@ -269,7 +269,7 @@ function loadItems() {
       itemFooter.appendChild(itemContent);
 
       const itemBtns = document.createElement('div');
-      itemBtns.setAttribute('class', 'item__btns');
+      itemBtns.setAttribute('class', 'item-btns');
       const checkBtn = document.createElement('button');
       checkBtn.setAttribute(
         'class',
