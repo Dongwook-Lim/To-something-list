@@ -95,7 +95,7 @@ li {
   color: var(--color-white);
 }
 
-.today-date {
+.header-date {
   color: var(--color-white);
 }
 
@@ -151,7 +151,7 @@ li {
 }
 
 .items {
-  height: 80%;
+  height: 85%;
   width: 100%;
   padding: 20px 10px;
   margin: 0;

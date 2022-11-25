@@ -2,11 +2,13 @@ const input = document.querySelector('.input__item');
 const form = document.querySelector('.new-form');
 const addBtn = document.querySelector('.add-btn');
 const items = document.querySelector('.items');
-const todayDate = document.querySelector('.today-date');
+const headerDate = document.querySelector('.header-date');
 const listTitleText = document.querySelector('.list-title__text');
 const nav = document.querySelector('.navigation');
 const navItems = document.querySelectorAll('.nav-item');
 const resetBtn = document.querySelector('.reset-btn');
+
+let todos = true;
 
 const Todo_LS = 'todos';
 const Tobuy_LS = 'tobuys';
@@ -33,8 +35,13 @@ const monthName = [
 const weekDay = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 resetBtn.addEventListener('click', () => {
-  localStorage.removeItem(Todo_LS);
-  loadItems();
+  if (todos) {
+    localStorage.removeItem(Todo_LS);
+    loadItems(Todo_LS);
+  } else {
+    localStorage.removeItem(Tobuy_LS);
+    loadItems(Tobuy_LS);
+  }
 });
 
 function changeThemeColor(themeColor, subThemeColor, text) {
@@ -59,8 +66,12 @@ function onClickNav(event) {
   });
   if (icon.classList.contains('buy-icon')) {
     changeThemeColor(BuyThemeColor, BuySubThemeColor, 'To-Buy');
+    todos = !todos;
+    loadItems(Tobuy_LS);
   } else {
     changeThemeColor(DoThemeColor, DoSubThemeColor, 'To-Do');
+    todos = !todos;
+    loadItems(Todo_LS);
   }
 }
 
@@ -68,22 +79,17 @@ nav.addEventListener('click', (event) => {
   onClickNav(event);
 });
 
-function deleteItem(selectedItem, selectedText) {
-  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+function savedeleteItemLS(selectedText, LS) {
+  let savedItems = JSON.parse(localStorage.getItem(LS));
   savedItems.forEach((item) => {
     if (item.text === selectedText) {
       savedItems.splice(savedItems.indexOf(item), 1);
     }
   });
-  localStorage.setItem(Todo_LS, JSON.stringify(savedItems));
-
-  selectedItem.classList.add('vanish');
-  setTimeout(() => {
-    selectedItem.remove();
-  }, 500);
+  localStorage.setItem(LS, JSON.stringify(savedItems));
 }
 
-function checkItem(savedItems, selectedText, index) {
+function savecheckItemLS(savedItems, selectedText, index, LS) {
   for (let i = 0; i < savedItems.length; i++) {
     if (savedItems[i].text === selectedText) {
       const selectedItem = savedItems[i];
@@ -93,10 +99,10 @@ function checkItem(savedItems, selectedText, index) {
       break;
     }
   }
-  localStorage.setItem(Todo_LS, JSON.stringify(savedItems));
+  localStorage.setItem(LS, JSON.stringify(savedItems));
 }
 
-function onClickBtn(event) {
+function onClickBtn(event, LS) {
   const selectedIcon = event.target;
   const selectedBtn = selectedIcon.parentNode;
   const selectedItem = selectedIcon.parentNode.parentNode.parentNode.parentNode;
@@ -105,18 +111,18 @@ function onClickBtn(event) {
 
   switch (selectedIcon.classList.contains('check-icon')) {
     case true:
-      let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+      let savedItems = JSON.parse(localStorage.getItem(LS));
       selectedBtn.classList.toggle('checked');
       selectedSpan.classList.toggle('blur');
       switch (selectedBtn.classList.contains('checked')) {
         case true:
-          checkItem(savedItems, selectedText, 0);
+          savecheckItemLS(savedItems, selectedText, 0, LS);
           selectedItem.classList.remove('moving-up');
           selectedItem.classList.add('moving-down');
           items.appendChild(selectedItem);
           break;
         case false:
-          checkItem(savedItems, selectedText, savedItems.length);
+          savecheckItemLS(savedItems, selectedText, savedItems.length, LS);
           selectedItem.classList.remove('moving-down');
           selectedItem.classList.add('moving-up');
           items.insertBefore(selectedItem, items.firstChild);
@@ -124,7 +130,11 @@ function onClickBtn(event) {
       }
       break;
     case false:
-      deleteItem(selectedItem, selectedText);
+      savedeleteItemLS(selectedText, LS);
+      selectedItem.classList.add('vanish');
+      setTimeout(() => {
+        selectedItem.remove();
+      }, 500);
       break;
     default:
       return;
@@ -133,29 +143,34 @@ function onClickBtn(event) {
 
 items.addEventListener('click', (event) => {
   if (event.target.classList.contains('fa-solid')) {
-    onClickBtn(event);
+    if (todos) {
+      onClickBtn(event, Todo_LS);
+    } else {
+      onClickBtn(event, Tobuy_LS);
+    }
   } else {
     return;
   }
 });
 
 function saveItemLS(text, date, time) {
-  localStorage.setItem(
-    Todo_LS,
-    JSON.stringify([
-      ...JSON.parse(localStorage.getItem(Todo_LS) || '[]'),
-      { text: text, checked: false, time: [date, time] },
-    ])
-  );
-}
-
-function setTime(span) {
-  const currentTime = new Date();
-  const hours = currentTime.getHours();
-  const minutes = currentTime.getMinutes();
-  span.innerText = `${hours < 10 ? '0' + hours : hours}:${
-    minutes < 10 ? '0' + minutes : minutes
-  }`;
+  if (todos) {
+    localStorage.setItem(
+      Todo_LS,
+      JSON.stringify([
+        ...JSON.parse(localStorage.getItem(Todo_LS) || '[]'),
+        { text: text, checked: false, time: [date, time] },
+      ])
+    );
+  } else {
+    localStorage.setItem(
+      Tobuy_LS,
+      JSON.stringify([
+        ...JSON.parse(localStorage.getItem(Tobuy_LS) || '[]'),
+        { text: text, checked: false, time: [date, time] },
+      ])
+    );
+  }
 }
 
 function createItem(text, checked) {
@@ -237,6 +252,15 @@ form.addEventListener('submit', (event) => {
   onSubmit();
 });
 
+function setTime(span) {
+  const currentTime = new Date();
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  span.innerText = `${hours < 10 ? '0' + hours : hours}:${
+    minutes < 10 ? '0' + minutes : minutes
+  }`;
+}
+
 function setDate(span) {
   const newDate = new Date();
   const year = newDate.getYear() - 100;
@@ -246,12 +270,13 @@ function setDate(span) {
   span.innerText = `${week}, ${month} ${date}, ${year}`;
 }
 
-function loadItems() {
-  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
+function loadItems(LS) {
+  let savedItems = JSON.parse(localStorage.getItem(LS));
   if (savedItems === null) {
-    localStorage.setItem(Todo_LS, JSON.stringify([]));
+    localStorage.setItem(LS, JSON.stringify([]));
     items.innerHTML = '';
   } else {
+    items.innerHTML = '';
     savedItems.forEach((item) => {
       const savedItem = createItem(item.text, item.checked);
       savedItem[1].innerText = `${item.time[0]}`;
@@ -262,6 +287,7 @@ function loadItems() {
 }
 
 window.addEventListener('load', () => {
-  loadItems();
-  setDate(todayDate);
+  todos = true;
+  loadItems(Todo_LS);
+  setDate(headerDate);
 });
