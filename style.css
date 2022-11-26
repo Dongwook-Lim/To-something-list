@@ -174,7 +174,6 @@ li {
   padding: 0 12px 0 18px;
   margin-bottom: 12px;
   box-shadow: 5px 5px 15px var(--color-dark-white);
-  transition: var(--animation-duration);
 }
 
 .item .blur {
@@ -380,6 +379,10 @@ li {
   animation: vanish var(--animation-duration) ease;
 }
 
+.appear {
+  animation: appear var(--animation-duration) ease;
+}
+
 @keyframes movingDown {
   from {
     transform: translateY(-100%);
@@ -404,5 +407,14 @@ li {
   }
   to {
     opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

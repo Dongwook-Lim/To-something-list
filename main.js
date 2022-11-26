@@ -274,14 +274,24 @@ function loadItems(LS) {
   let savedItems = JSON.parse(localStorage.getItem(LS));
   if (savedItems === null) {
     localStorage.setItem(LS, JSON.stringify([]));
-    items.innerHTML = '';
+    items.classList.add('vanish');
+    setTimeout(() => {
+      items.innerHTML = '';
+      items.classList.remove('vanish');
+    }, 500);
   } else {
     items.innerHTML = '';
     savedItems.forEach((item) => {
       const savedItem = createItem(item.text, item.checked);
       savedItem[1].innerText = `${item.time[0]}`;
       savedItem[2].innerText = `${item.time[1]}`;
-      items.insertBefore(savedItem[0], items.children[0]);
+      savedItem[0].classList.add('appear');
+      setTimeout(() => {
+        items.insertBefore(savedItem[0], items.children[0]);
+        setTimeout(() => {
+          savedItem[0].classList.remove('appear');
+        }, 100);
+      }, 100);
     });
   }
 }
