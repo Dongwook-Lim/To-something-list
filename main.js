@@ -134,7 +134,7 @@ function onClickBtn(event, LS) {
       selectedItem.classList.add('vanish');
       setTimeout(() => {
         selectedItem.remove();
-      }, 500);
+      }, 300);
       break;
     default:
       return;
@@ -278,7 +278,7 @@ function loadItems(LS) {
     setTimeout(() => {
       items.innerHTML = '';
       items.classList.remove('vanish');
-    }, 500);
+    }, 300);
   } else {
     items.innerHTML = '';
     savedItems.forEach((item) => {

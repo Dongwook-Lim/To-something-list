@@ -18,6 +18,7 @@
 
   /* Animation */
   --animation-duration: 500ms;
+  --animation-fast-duration: 300ms;
 }
 
 * {
@@ -376,7 +377,7 @@ li {
 }
 
 .vanish {
-  animation: vanish var(--animation-duration) ease;
+  animation: vanish var(--animation-fast-duration) ease;
 }
 
 .appear {
