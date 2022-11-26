@@ -228,6 +228,18 @@ function addItem(text) {
   input.focus();
 }
 
+function checkBeforeAdd(LS) {
+  let savedItems = JSON.parse(localStorage.getItem(LS));
+  for (let i = 0; i < savedItems.length; i++) {
+    if (input.value === savedItems[i].text) {
+      alert('That already exists!😳');
+      input.value = '';
+      return;
+    }
+  }
+  addItem(input.value);
+}
+
 function onSubmit() {
   const text = input.value;
   if (text === '') {
@@ -235,16 +247,11 @@ function onSubmit() {
     return;
   }
 
-  let savedItems = JSON.parse(localStorage.getItem(Todo_LS));
-  for (let i = 0; i < savedItems.length; i++) {
-    if (text === savedItems[i].text) {
-      alert('That already exists!😳');
-      input.value = '';
-      return;
-    }
+  if (todos) {
+    checkBeforeAdd(Todo_LS);
+  } else {
+    checkBeforeAdd(Tobuy_LS);
   }
-
-  addItem(text);
 }
 
 form.addEventListener('submit', (event) => {
